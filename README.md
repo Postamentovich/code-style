@@ -2338,6 +2338,90 @@
 
 ## <a name="naming-conventions">Соглашение об именовании</a>
 
+  <a name="naming--meaning"></a><a name="22.1"></a>
+  - [23.1](#naming--meaning) Называйте переменные так, чтобы их имена раскрывали бы их сущность, их роль в программе. При таком подходе их удобно будет искать в коде, а тот, кто увидит этот код, легче сможет понять смысл выполняемых им действий
+
+    ```javascript
+    // плохо
+    let daysSLV = 10;
+    let y = new Date().getFullYear();
+
+    let ok;
+    if (user.age > 30) {
+        ok = true;
+    }
+
+    // хорошо
+    const MAX_AGE = 30;
+    let daysSinceLastVisit = 10;
+    let currentYear = new Date().getFullYear();
+
+    ...
+
+    const isUserOlderThanAllowed = user.age > MAX_AGE;
+    ```
+
+    Не надо добавлять в имена переменных дополнительные слова, в которых нет необходимости.
+
+    ```javascript
+    // плохо
+    let nameValue;
+    let theProduct;
+
+    // хорошо
+    let name;
+    let product;
+    ```
+
+    Не стоит принуждать того, кто читает код, к тому, чтобы ему приходилось бы помнить о том, в каком окружении объявлена переменная.
+    
+    ```javascript
+    // плохо
+    const users = ["John", "Marco", "Peter"];
+    users.forEach(u => {
+        doSomething();
+        doSomethingElse();
+        // ...
+        // ...
+        // ...
+        // ...
+        // Тут перед нами ситуация, в которой возникает WTF-вопрос "Для чего используется `u`?"
+        register(u);
+    });
+
+    // хорошо
+    const users = ["John", "Marco", "Peter"];
+    users.forEach(user => {
+        doSomething();
+        doSomethingElse();
+        // ...
+        // ...
+        // ...
+        // ...
+        register(user);
+    });
+    ```
+    Не нужно снабжать имена переменных избыточными сведениями о контексте, в котором они используются.
+
+    ```javascript
+    // плохо
+    const user = {
+        userName: "John",
+        userSurname: "Doe",
+        userAge: "28"
+    };
+
+    user.userName;
+    // хорошо
+    const user = {
+        name: "John",
+        surname: "Doe",
+        age: "28"
+    };
+
+    user.name;
+    ```
+
   <a name="naming--descriptive"></a><a name="22.1"></a>
   - [23.1](#naming--descriptive) Избегайте названий из одной буквы. Имя должно быть наглядным. eslint: [`id-length`](https://eslint.org/docs/rules/id-length)
 
