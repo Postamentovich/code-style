@@ -3,7 +3,6 @@
 ## Оглавление
 
   1. [Типы](#types)
-  1. [Объявление переменных](#references)
   1. [Объекты](#objects)
   1. [Массивы](#arrays)
   1. [Деструктуризация](#destructuring)
@@ -25,61 +24,12 @@
   1. [Точка с запятой](#semicolons)
   1. [Приведение типов](#type-casting--coercion)
   1. [Соглашение об именовании](#naming-conventions)
-  1. [Тестирование](#testing)
-
-## <a name="references">Объявление переменных</a>
-
-  <a name="references--prefer-const"></a><a name="2.1"></a>
-  - [2.1](#references--prefer-const) Используйте `const` для объявления переменных; избегайте `var`. eslint: [`prefer-const`](https://eslint.org/docs/rules/prefer-const.html), [`no-const-assign`](https://eslint.org/docs/rules/no-const-assign.html)
-
-    > Почему? Это гарантирует, что вы не сможете переопределять значения, т.к. это может привести к ошибкам и к усложнению понимания кода.
-
-    ```javascript
-    // плохо
-    var a = 1;
-    var b = 2;
-
-    // хорошо
-    const a = 1;
-    const b = 2;
-    ```
-
-  <a name="references--disallow-var"></a><a name="2.2"></a>
-  - [2.2](#references--disallow-var) Если вам необходимо переопределять значения, то используйте `let` вместо `var`. eslint: [`no-var`](https://eslint.org/docs/rules/no-var.html)
-
-    > Почему? Область видимости `let` — блок, у `var` — функция.
-
-    ```javascript
-    // плохо
-    var count = 1;
-    if (true) {
-      count += 1;
-    }
-
-    // хорошо, используйте let.
-    let count = 1;
-    if (true) {
-      count += 1;
-    }
-    ```
-
-  <a name="references--block-scope"></a><a name="2.3"></a>
-  - [2.3](#references--block-scope) Помните, что у `let` и `const` блочная область видимости.
-
-    ```javascript
-    // const и let существуют только в том блоке, в котором они определены.
-    {
-      let a = 1;
-      const b = 1;
-    }
-    console.log(a); // ReferenceError
-    console.log(b); // ReferenceError
-    ```
+  1. [React](#react)
 
 ## <a name="objects">Объекты</a>
 
-  <a name="objects--no-new"></a><a name="3.1"></a>
-  - [3.1](#objects--no-new) Для создания объекта используйте литеральную нотацию. eslint: [`no-new-object`](https://eslint.org/docs/rules/no-new-object.html)
+  <a name="objects--no-new"></a><a name="1.1"></a>
+  - [1.1](#objects--no-new) Для создания объекта используйте литеральную нотацию. eslint: [`no-new-object`](https://eslint.org/docs/rules/no-new-object.html)
 
     ```javascript
     // плохо
@@ -89,8 +39,8 @@
     const item = {};
     ```
 
-  <a name="es6-computed-properties"></a><a name="3.4"></a>
-  - [3.2](#es6-computed-properties) Используйте вычисляемые имена свойств, когда создаёте объекты с динамическими именами свойств.
+  <a name="es6-computed-properties"></a><a name="1.2"></a>
+  - [1.2](#es6-computed-properties) Используйте вычисляемые имена свойств, когда создаёте объекты с динамическими именами свойств.
 
     > Почему? Они позволяют вам определить все свойства объекта в одном месте.
 
@@ -115,8 +65,8 @@
     };
     ```
 
-  <a name="es6-object-shorthand"></a><a name="3.5"></a>
-  - [3.3](#es6-object-shorthand) Используйте сокращённую запись метода объекта. eslint: [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand.html)
+  <a name="es6-object-shorthand"></a><a name="1.3"></a>
+  - [1.3](#es6-object-shorthand) Используйте сокращённую запись метода объекта. eslint: [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand.html)
 
     ```javascript
     // плохо
@@ -138,8 +88,8 @@
     };
     ```
 
-  <a name="es6-object-concise"></a><a name="3.6"></a>
-  - [3.4](#es6-object-concise) Используйте сокращённую запись свойств объекта. eslint: [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand.html)
+  <a name="es6-object-concise"></a><a name="1.4"></a>
+  - [1.4](#es6-object-concise) Используйте сокращённую запись свойств объекта. eslint: [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand.html)
 
     > Почему? Это короче и понятнее.
 
@@ -157,8 +107,8 @@
     };
     ```
 
-  <a name="objects--grouped-shorthand"></a><a name="3.7"></a>
-  - [3.5](#objects--grouped-shorthand) Группируйте ваши сокращённые записи свойств в начале объявления объекта.
+  <a name="objects--grouped-shorthand"></a><a name="1.5"></a>
+  - [1.5](#objects--grouped-shorthand) Группируйте ваши сокращённые записи свойств в начале объявления объекта.
 
     > Почему? Так легче сказать, какие свойства используют сокращённую запись.
 
@@ -187,10 +137,10 @@
     };
     ```
 
-  <a name="objects--quoted-props"></a><a name="3.8"></a>
-  - [3.6](#objects--quoted-props) Только недопустимые идентификаторы помещаются в кавычки. eslint: [`quote-props`](https://eslint.org/docs/rules/quote-props.html)
+  <a name="objects--quoted-props"></a>
+  - [1.6](#objects--quoted-props) Только недопустимые идентификаторы помещаются в кавычки. eslint: [`quote-props`](https://eslint.org/docs/rules/quote-props.html)
 
-    > Почему? На наш взгляд, такой код легче читать. Это улучшает подсветку синтаксиса, а также облегчает оптимизацию для многих JS-движков.
+    > Почему? Такой код легче читать. Это улучшает подсветку синтаксиса, а также облегчает оптимизацию для многих JS-движков.
 
     ```javascript
     // плохо
@@ -209,7 +159,7 @@
     ```
 
   <a name="objects--rest-spread"></a>
-  - [3.8](#objects--rest-spread) Используйте оператор расширения вместо [`Object.assign`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) для поверхностного копирования объектов. Используйте синтаксис оставшихся свойств, чтобы получить новый объект с некоторыми опущенными свойствами.
+  - [1.7](#objects--rest-spread) Используйте оператор расширения вместо [`Object.assign`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) для поверхностного копирования объектов. Используйте синтаксис оставшихся свойств, чтобы получить новый объект с некоторыми опущенными свойствами.
 
     ```javascript
     // очень плохо
@@ -230,8 +180,8 @@
 
 ## <a name="arrays">Массивы</a>
 
-  <a name="arrays--literals"></a><a name="4.1"></a>
-  - [4.1](#arrays--literals) Для создания массива используйте литеральную нотацию. eslint: [`no-array-constructor`](https://eslint.org/docs/rules/no-array-constructor.html)
+  <a name="arrays--literals"></a>
+  - [2.1](#arrays--literals) Для создания массива используйте литеральную нотацию. eslint: [`no-array-constructor`](https://eslint.org/docs/rules/no-array-constructor.html)
 
     ```javascript
     // плохо
@@ -241,8 +191,8 @@
     const items = [];
     ```
 
-  <a name="arrays--push"></a><a name="4.2"></a>
-  - [4.2](#arrays--push) Для добавления элемента в массив используйте [Array#push](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/push) вместо прямого присваивания.
+  <a name="arrays--push"></a>
+  - [2.2](#arrays--push) Для добавления элемента в массив используйте [Array#push](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/push) вместо прямого присваивания.
 
     ```javascript
     const someStack = [];
@@ -254,8 +204,8 @@
     someStack.push('abracadabra');
     ```
 
-  <a name="es6-array-spreads"></a><a name="4.3"></a>
-  - [4.3](#es6-array-spreads) Для копирования массивов используйте оператор расширения `...`.
+  <a name="es6-array-spreads"></a>
+  - [2.3](#es6-array-spreads) Для копирования массивов используйте оператор расширения `...`.
 
     ```javascript
     // плохо
@@ -271,9 +221,8 @@
     const itemsCopy = [...items];
     ```
 
-  <a name="arrays--from"></a>
-  <a name="arrays--from-iterable"></a><a name="4.4"></a>
-  - [4.4](#arrays--from-iterable) Для преобразования итерируемого объекта в массив используйте оператор расширения `...` вместо [`Array.from`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/from).
+  <a name="arrays--from-iterable"></a>
+  - [2.4](#arrays--from-iterable) Для преобразования итерируемого объекта в массив используйте оператор расширения `...` вместо [`Array.from`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/from).
 
     ```javascript
     const foo = document.querySelectorAll('.foo');
@@ -286,7 +235,7 @@
     ```
 
   <a name="arrays--from-array-like"></a>
-  - [4.5](#arrays--from-array-like) Используйте [`Array.from`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/from) для преобразования массивоподобного объекта в массив.
+  - [2.5](#arrays--from-array-like) Используйте [`Array.from`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/from) для преобразования массивоподобного объекта в массив.
 
     ```javascript
     const arrLike = { 0: 'foo', 1: 'bar', 2: 'baz', length: 3 };
@@ -299,7 +248,7 @@
     ```
 
   <a name="arrays--mapping"></a>
-  - [4.6](#arrays--mapping) Используйте [`Array.from`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/from) вместо оператора расширения `...` для маппинга итерируемых объектов, это позволяет избежать создания промежуточного массива.
+  - [2.6](#arrays--mapping) Используйте [`Array.from`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/from) вместо оператора расширения `...` для маппинга итерируемых объектов, это позволяет избежать создания промежуточного массива.
 
     ```javascript
     // плохо
@@ -309,8 +258,8 @@
     const baz = Array.from(foo, bar);
     ```
 
-  <a name="arrays--callback-return"></a><a name="4.5"></a>
-  - [4.7](#arrays--callback-return) Используйте операторы `return` внутри функций обратного вызова в методах массива. Можно опустить `return`, когда тело функции состоит из одной инструкции, возвращающей выражение без побочных эффектов. [8.2](#arrows--implicit-return). eslint: [`array-callback-return`](https://eslint.org/docs/rules/array-callback-return)
+  <a name="arrays--callback-return"></a>
+  - [2.7](#arrays--callback-return) Используйте операторы `return` внутри функций обратного вызова в методах массива. Можно опустить `return`, когда тело функции состоит из одной инструкции, возвращающей выражение без побочных эффектов. [8.2](#arrows--implicit-return). eslint: [`array-callback-return`](https://eslint.org/docs/rules/array-callback-return)
 
     ```javascript
     // хорошо
@@ -355,7 +304,7 @@
     ```
 
   <a name="arrays--bracket-newline"></a>
-  - [4.8](#arrays--bracket-newline) Если массив располагается на нескольких строках, то используйте разрывы строк после открытия и перед закрытием скобок.
+  - [2.8](#arrays--bracket-newline) Если массив располагается на нескольких строках, то используйте разрывы строк после открытия и перед закрытием скобок.
 
     ```javascript
     // плохо
@@ -1123,6 +1072,52 @@
     ```
 
 ## <a name="variables">Переменные</a>
+ <a name="references--prefer-const"></a><a name="2.1"></a>
+  - [2.1](#references--prefer-const) Используйте `const` для объявления переменных; избегайте `var`. eslint: [`prefer-const`](https://eslint.org/docs/rules/prefer-const.html), [`no-const-assign`](https://eslint.org/docs/rules/no-const-assign.html)
+
+    > Почему? Это гарантирует, что вы не сможете переопределять значения, т.к. это может привести к ошибкам и к усложнению понимания кода.
+
+    ```javascript
+    // плохо
+    var a = 1;
+    var b = 2;
+
+    // хорошо
+    const a = 1;
+    const b = 2;
+    ```
+
+  <a name="references--disallow-var"></a><a name="2.2"></a>
+  - [2.2](#references--disallow-var) Если вам необходимо переопределять значения, то используйте `let` вместо `var`. eslint: [`no-var`](https://eslint.org/docs/rules/no-var.html)
+
+    > Почему? Область видимости `let` — блок, у `var` — функция.
+
+    ```javascript
+    // плохо
+    var count = 1;
+    if (true) {
+      count += 1;
+    }
+
+    // хорошо, используйте let.
+    let count = 1;
+    if (true) {
+      count += 1;
+    }
+    ```
+
+  <a name="references--block-scope"></a><a name="2.3"></a>
+  - [2.3](#references--block-scope) Помните, что у `let` и `const` блочная область видимости.
+
+    ```javascript
+    // const и let существуют только в том блоке, в котором они определены.
+    {
+      let a = 1;
+      const b = 1;
+    }
+    console.log(a); // ReferenceError
+    console.log(b); // ReferenceError
+    ```
 
   <a name="variables--one-const"></a><a name="13.2"></a>
   - [13.2](#variables--one-const) Используйте объявление `const` или `let` для каждой переменной или присвоения. eslint: [`one-var`](https://eslint.org/docs/rules/one-var.html)
@@ -2491,23 +2486,351 @@
       // ...
     ];
     ```
-## <a name="testing">Тестирование</a>
 
-  <a name="testing--yup"></a><a name="28.1"></a>
-  - [30.1](#testing--yup) **Ага.**
+## <a name="react">React</a>
 
-    ```javascript
-    function foo() {
-      return true;
+  - Включайте только один React компонент в файл.
+    - Однако, разрешается несколько [компонентов без состояний (чистых)](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) в файле. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
+  - Всегда используйте JSX синтаксис.
+
+## <a name="naming">Именование</a>
+
+  - **Расширения**: Используйте расширение `.jsx | .tsx` для компонентов React. eslint: [`react/jsx-filename-extension`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md)
+  - **Именование переменной**: Используйте `PascalCase` для компонентов React. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
+
+    ```jsx
+    // плохо
+    import reservationCard from './ReservationCard';
+
+    // хорошо
+    import ReservationCard from './ReservationCard';
+    ```
+  - **Именование компонента высшего порядка**: Используйте сочетание имени компонента высшего порядка и имени переданного в него компонента как свойство `displayName` сгенерированного компонента. Например, из компонента высшего порядка `withFoo()`, которому передан компонент `Bar`, должен получаться компонент с `displayName` равным `withFoo(Bar)`.
+
+    > Почему? Свойство `displayName` может использоваться в инструментах разработчика или сообщениях об ошибках, и если оно ясно выражает связь между компонентами, это помогает понять, что происходит.
+
+    ```jsx
+    // плохо
+    export default function withFoo(WrappedComponent) {
+      return function WithFoo(props) {
+        return <WrappedComponent {...props} foo />;
+      }
+    }
+
+    // хорошо
+    export default function withFoo(WrappedComponent) {
+      function WithFoo(props) {
+        return <WrappedComponent {...props} foo />;
+      }
+
+      const wrappedComponentName = WrappedComponent.displayName
+        || WrappedComponent.name
+        || 'Component';
+
+      WithFoo.displayName = `withFoo(${wrappedComponentName})`;
+      return WithFoo;
     }
     ```
 
-  <a name="testing--for-real"></a><a name="28.2"></a>
-  - [30.2](#testing--for-real) **Нет, но серьёзно**:
-    - Вы должны писать тесты!
-    - Стремитесь к тому, чтобы написать много маленьких чистых функций, и к тому, чтобы свести к минимуму места, где происходят мутации.
-    - Будьте осторожны со стабами (stubs) и моками (mocks) — они могут сделать ваше тестирование хрупким.
-    - Мы в первую очередь советуем вам использовать [`mocha`](https://www.npmjs.com/package/mocha) и [`jest`](https://www.npmjs.com/package/jest). [`tape`](https://www.npmjs.com/package/tape) также иногда используется для небольших, отдельных модулей.
-    - 100% покрытие тестами — это хорошая цель, к которой надо стремиться, даже если это не всегда практично.
-    - Всякий раз, когда вы исправляете ошибку, _пишите регрессионный тест_. Исправленная ошибка без регрессионного тестирования почти наверняка всплывёт в будущем.
+  - **Названия свойств**: Избегайте использования названий свойств DOM-компонента для других целей.
 
+    > Почему? Люди ожидают, что такие свойства как `style` и `className` имеют одно определённое значение. Изменение этого API в вашем приложении ухудшает читабельность и поддержку кода, что может приводить к ошибкам.
+
+    ```jsx
+    // плохо
+    <MyComponent style="fancy" />
+
+    // плохо
+    <MyComponent className="fancy" />
+
+    // хорошо
+    <MyComponent variant="fancy" />
+    ```
+
+
+## <a name="alignment">Выравнивание</a>
+
+  - Следуйте приведённым ниже стилям для JSX-синтаксиса. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+
+    ```jsx
+    // плохо
+    <Foo superLongParam="bar"
+         anotherSuperLongParam="baz" />
+
+    // хорошо
+    <Foo
+      superLongParam="bar"
+      anotherSuperLongParam="baz"
+    />
+
+    // если свойства помещаются на одну строку, оставляйте их на одной строке
+    <Foo bar="bar" />
+
+    // отступ у дочерних элементов задается как обычно
+    <Foo
+      superLongParam="bar"
+      anotherSuperLongParam="baz"
+    >
+      <Quux />
+    </Foo>
+
+    // плохо
+    {showButton &&
+      <Button />
+    }
+
+    // плохо
+    {
+      showButton &&
+        <Button />
+    }
+
+    // хорошо
+    {showButton && (
+      <Button />
+    )}
+
+    // хорошо
+    {showButton && <Button />}
+    ```
+
+## <a name="spacing">Пробелы</a>
+
+  - Всегда вставляйте один пробел в ваш самозакрывающийся тег. eslint: [`no-multi-spaces`](https://eslint.org/docs/rules/no-multi-spaces), [`react/jsx-tag-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md)
+
+    ```jsx
+    // плохо
+    <Foo/>
+
+    // очень плохо
+    <Foo                 />
+
+    // плохо
+    <Foo
+     />
+
+    // хорошо
+    <Foo />
+    ```
+
+  - Не отделяйте фигурные скобки пробелами в JSX. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
+
+    ```jsx
+    // плохо
+    <Foo bar={ baz } />
+
+    // хорошо
+    <Foo bar={baz} />
+    ```
+
+## <a name="props">Свойства (Props)</a>
+
+  - Всегда используйте `camelCase` для названий свойств.
+
+    ```jsx
+    // плохо
+    <Foo
+      UserName="hello"
+      phone_number={12345678}
+    />
+
+    // хорошо
+    <Foo
+      userName="hello"
+      phoneNumber={12345678}
+    />
+    ```
+
+  - Не указывайте значение свойства, когда оно явно `true`. eslint: [`react/jsx-boolean-value`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)
+
+    ```jsx
+    // плохо
+    <Foo
+      hidden={true}
+    />
+
+    // хорошо
+    <Foo
+      hidden
+    />
+
+    // хорошо
+    <Foo hidden />
+    ```
+
+  - Не используйте индексы элементов массива в качестве свойства `key`. Отдавайте предпочтение уникальному ID. eslint: [`react/no-array-index-key`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md)
+
+    > Почему? Неиспользование стабильного ID [является антипаттерном](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318), потому что это может негативно повлиять на производительность компонента и вызвать проблемы с его состоянием.
+
+    Мы не рекомендуем использовать индексы для ключей, если порядок элементов может измениться.
+
+    ```jsx
+    // плохо
+    {todos.map((todo, index) =>
+      <Todo
+        {...todo}
+        key={index}
+      />
+    )}
+
+    // хорошо
+    {todos.map(todo => (
+      <Todo
+        {...todo}
+        key={todo.id}
+      />
+    ))}
+    ```
+
+  - Всегда указывайте подробные `defaultProps` для всех свойств, которые не указаны как необходимые.
+
+    > Почему? `propTypes` является способом документации, а предоставление `defaultProps` позволяет читателю вашего кода избежать множества неясностей. Кроме того, это может означать, что ваш код может пропустить определённые проверки типов.
+
+    ```jsx
+    // плохо
+    function SFC({ foo, bar, children }) {
+      return <div>{foo}{bar}{children}</div>;
+    }
+    SFC.propTypes = {
+      foo: PropTypes.number.isRequired,
+      bar: PropTypes.string,
+      children: PropTypes.node,
+    };
+
+    // хорошо
+    function SFC({ foo, bar, children }) {
+      return <div>{foo}{bar}{children}</div>;
+    }
+    SFC.propTypes = {
+      foo: PropTypes.number.isRequired,
+      bar: PropTypes.string,
+      children: PropTypes.node,
+    };
+    SFC.defaultProps = {
+      bar: '',
+      children: null,
+    };
+    ```
+
+  - Используйте оператор расширения для свойств осознанно.
+    > Почему? В противном случае вы скорее всего будете передавать внутрь компонента лишние свойства. А для React версии 15.6.1 и старше, вы можете [передать невалидные HTML-атрибуты в DOM](https://reactjs.org/blog/2017/09/08/dom-attributes-in-react-16.html).
+
+    Исключения:
+
+    - Компоненты высшего порядка, которые передают свойства внутрь дочернего компонента и поднимают propTypes.
+
+    ```jsx
+    function HOC(WrappedComponent) {
+      return class Proxy extends React.Component {
+        Proxy.propTypes = {
+          text: PropTypes.string,
+          isLoading: PropTypes.bool
+        };
+
+        render() {
+          return <WrappedComponent {...this.props} />
+        }
+      }
+    }
+    ```
+
+    - Использование оператора расширения для известных, явно заданных свойств. Это может быть особенно полезно при тестировании компонентов React с конструкцией beforeEach из Mocha.
+
+    ```jsx
+    export default function Foo {
+      const props = {
+        text: '',
+        isPublished: false
+      }
+
+      return <div {...props} />;
+    }
+    ```
+
+    Примечания по использованию:
+    Если возможно, отфильтруйте ненужные свойства. Кроме того, используйте [prop-types-exact](https://www.npmjs.com/package/prop-types-exact), чтобы предотвратить ошибки.
+
+    ```jsx
+    // плохо
+    render() {
+      const { irrelevantProp, ...relevantProps } = this.props;
+      return <WrappedComponent {...this.props} />
+    }
+
+    // хорошо
+    render() {
+      const { irrelevantProp, ...relevantProps } = this.props;
+      return <WrappedComponent {...relevantProps} />
+    }
+    ```
+
+## <a name="refs">Ссылки (Refs)</a>
+
+  - Всегда используйте функции обратного вызова. eslint: [`react/no-string-refs`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)
+
+    ```jsx
+    // плохо
+    <Foo
+      ref="myRef"
+    />
+
+    // хорошо
+    <Foo
+      ref={(ref) => { this.myRef = ref; }}
+    />
+    ```
+
+## <a name="parentheses">Круглые скобки</a>
+
+  - Оборачивайте в скобки JSX теги, когда они занимают больше одной строки. eslint: [`react/jsx-wrap-multilines`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-wrap-multilines.md)
+
+    ```jsx
+    // плохо
+    render() {
+      return <MyComponent variant="long body" foo="bar">
+               <MyChild />
+             </MyComponent>;
+    }
+
+    // хорошо
+    render() {
+      return (
+        <MyComponent variant="long body" foo="bar">
+          <MyChild />
+        </MyComponent>
+      );
+    }
+
+    // хорошо, когда одна строка
+    render() {
+      const body = <div>hello</div>;
+      return <MyComponent>{body}</MyComponent>;
+    }
+    ```
+
+## <a name="tags">Теги</a>
+
+  - Всегда используйте самозакрывающиеся теги, если у элемента нет дочерних элементов. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
+
+    ```jsx
+    // плохо
+    <Foo variant="stuff"></Foo>
+
+    // хорошо
+    <Foo variant="stuff" />
+    ```
+
+  - Если ваш компонент имеет множество свойств, которые располагаются на нескольких строчках, то закрывайте тег на новой строке. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md) [`react/jsx-closing-tag-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md)
+
+    ```jsx
+    // плохо
+    <Foo
+      bar="bar"
+      baz="baz" />
+
+    // хорошо
+    <Foo
+      bar="bar"
+      baz="baz"
+    />
+    ```
