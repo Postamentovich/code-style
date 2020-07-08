@@ -25,22 +25,7 @@
   1. [Точка с запятой](#semicolons)
   1. [Приведение типов](#type-casting--coercion)
   1. [Соглашение об именовании](#naming-conventions)
-  1. [Аксессоры](#accessors)
-  1. [События](#events)
-  1. [jQuery](#jquery)
-  1. [Поддержка ECMAScript 5](#ecmascript-5-compatibility)
-  1. [Возможности ECMAScript 6+ (ES 2015+)](#ecmascript-6-es-2015-styles)
-  1. [Стандартная библиотека](#standard-library)
   1. [Тестирование](#testing)
-  1. [Производительность](#performance)
-  1. [Ресурсы](#resources)
-  1. [В реальной жизни](#in-the-wild)
-  1. [Переводы](#translation)
-  1. [Пообщаться с разработчиками Airbnb](#chat-with-us-about-javascript)
-  1. [Участники перевода](#contributors)
-  1. [Лицензия](#license)
-  1. [Поправки](#amendments)
-
 
 ## <a name="references">Объявление переменных</a>
 
@@ -90,7 +75,6 @@
     console.log(a); // ReferenceError
     console.log(b); // ReferenceError
     ```
-**[⬆ к оглавлению](#Оглавление)**
 
 ## <a name="objects">Объекты</a>
 
@@ -243,8 +227,6 @@
 
     const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
     ```
-
-**[⬆ к оглавлению](#Оглавление)**
 
 ## <a name="arrays">Массивы</a>
 
@@ -409,8 +391,6 @@
     ];
     ```
 
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="destructuring">Деструктуризация</a>
 
   <a name="destructuring--object"></a><a name="5.1"></a>
@@ -478,8 +458,6 @@
     const { left, top } = processInput(input);
     ```
 
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="strings">Строки</a>
 
   <a name="strings--line-length"></a><a name="6.2"></a>
@@ -543,8 +521,6 @@
     const foo = '\'this\' is "quoted"';
     const foo = `my name is '${name}'`;
     ```
-
-**[⬆ к оглавлению](#Оглавление)**
 
 ## <a name="functions">Функции</a>
 
@@ -708,8 +684,6 @@
     );
     ```
 
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="arrow-functions">Стрелочные функции</a>
 
   <a name="arrows--use-them"></a><a name="8.1"></a>
@@ -854,8 +828,6 @@
     };
     ```
 
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="classes--constructors">Классы и конструкторы</a>
 
   <a name="constructors--chaining"></a><a name="9.3"></a>
@@ -995,8 +967,6 @@
     }
     ```
 
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="modules">Модули</a>
 
   <a name="modules--use-them"></a><a name="10.1"></a>
@@ -1107,8 +1077,6 @@
     import barCss from 'bar.css';
     ```
 
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="properties">Свойства</a>
 
   <a name="properties--dot"></a><a name="12.1"></a>
@@ -1153,8 +1121,6 @@
     // хорошо
     const binary = 2 ** 10;
     ```
-
-**[⬆ к оглавлению](#Оглавление)**
 
 ## <a name="variables">Переменные</a>
 
@@ -1249,8 +1215,6 @@
   - [13.8](#variables--no-unused-vars) Запретить неиспользуемые переменные. eslint: [`no-unused-vars`](https://eslint.org/docs/rules/no-unused-vars)
 
     > Почему? Переменные, которые объявлены и не используются в коде, скорее всего, являются ошибкой из-за незавершённого рефакторинга. Такие переменные занимают место в коде и могут привести к путанице при чтении.
-
-**[⬆ к оглавлению](#Оглавление)**
 
 ## <a name="comparison-operators--equality">Операторы сравнения и равенства</a>
 
@@ -1407,8 +1371,6 @@
     const bar = a + (b / c) * d;
     ```
 
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="blocks">Блоки</a>
 
   <a name="blocks--braces"></a><a name="16.1"></a>
@@ -1523,8 +1485,6 @@
     }
     ```
 
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="control-statements">Управляющие операторы</a>
 
   <a name="control-statements"></a>
@@ -1580,8 +1540,6 @@
       thing1();
     }
     ```
-
-**[⬆ к оглавлению](#Оглавление)**
 
 ## <a name="comments">Комментарии</a>
 
@@ -1721,8 +1679,6 @@
       }
     }
     ```
-
-**[⬆ к оглавлению](#Оглавление)**
 
 ## <a name="whitespace">Пробелы</a>
 
@@ -2139,8 +2095,6 @@
     ```
     <!-- markdownlint-enable MD012 -->
 
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="commas">Запятые</a>
 
   <a name="commas--leading-trailing"></a><a name="19.1"></a>
@@ -2274,8 +2228,6 @@
     );
     ```
 
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="semicolons">Точка с запятой</a>
 
   <a name="semicolons--required"></a><a name="20.1"></a>
@@ -2323,8 +2275,6 @@
     ```
 
     [Читать подробнее](https://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function/7365214#7365214).
-
-**[⬆ к оглавлению](#Оглавление)**
 
 ## <a name="type-casting--coercion">Приведение типов</a>
 
@@ -2390,8 +2340,6 @@
     // отлично
     const hasAge = !!age;
     ```
-
-**[⬆ к оглавлению](#Оглавление)**
 
 ## <a name="naming-conventions">Соглашение об именовании</a>
 
@@ -2543,8 +2491,6 @@
       // ...
     ];
     ```
-**[⬆ к оглавлению](#Оглавление)**
-
 ## <a name="testing">Тестирование</a>
 
   <a name="testing--yup"></a><a name="28.1"></a>
@@ -2565,4 +2511,3 @@
     - 100% покрытие тестами — это хорошая цель, к которой надо стремиться, даже если это не всегда практично.
     - Всякий раз, когда вы исправляете ошибку, _пишите регрессионный тест_. Исправленная ошибка без регрессионного тестирования почти наверняка всплывёт в будущем.
 
-**[⬆ к оглавлению](#Оглавление)**
