@@ -7,8 +7,7 @@
 
 ## Оглавление
 
-1. [Типы](#types)
-1. [Объекты](#objects)
+1. [Объекты](#objects) 1.[Для создания объекта используйте литеральную нотацию](#objects--no-new)
 1. [Массивы](#arrays)
 1. [Деструктуризация](#destructuring)
 1. [Строки](#strings)
@@ -30,10 +29,16 @@
 1. [Соглашение об именовании](#naming-conventions)
 1. [React](#react)
 1. [Typescript](#typescript)
+1. [Тестирование](#test)
+1. [Ассинхронность](#promise)
 
 ## <a name="objects">Объекты</a>
 
--   [1.1](#objects--no-new) Для создания объекта используйте литеральную нотацию. eslint: [`no-new-object`](https://eslint.org/docs/rules/no-new-object.html)
+<a name="objects--no-new"></a>
+
+-   [1.1](#objects--no-new) Для создания объекта используйте литеральную нотацию.
+
+    > eslint: [`no-new-object`](https://eslint.org/docs/rules/no-new-object.html)
 
     ```javascript
     // плохо
@@ -2295,7 +2300,7 @@
 
 <a name="naming--camelCase"></a><a name="22.2"></a>
 
--   [23.2](#naming--camelCase) Используйте `camelCase` для именования объектов, функций и экземпляров. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
+-   [23.2](#naming--camelCase) Используйте `camelCase` для именования переменных, объектов, функций, методов и экземпляров. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
 
     ```javascript
     // плохо
@@ -2310,7 +2315,7 @@
 
 <a name="naming--PascalCase"></a><a name="22.3"></a>
 
--   [23.3](#naming--PascalCase) Используйте `PascalCase` только для именования конструкторов и классов. eslint: [`new-cap`](https://eslint.org/docs/rules/new-cap.html)
+-   [23.3](#naming--PascalCase) Используйте `PascalCase` для именования конструкторов, классов, типов, enum, интерфейсов и синглтонов. eslint: [`new-cap`](https://eslint.org/docs/rules/new-cap.html)
 
     ```javascript
     // плохо
@@ -2332,6 +2337,16 @@
     const good = new User({
         name: "yup",
     });
+
+    // плохо
+    enum color {
+      red
+    }
+
+    // хорошо
+    enum Color {
+        Red
+    }
     ```
 
 <a name="naming--leading-underscore"></a>
@@ -2772,3 +2787,195 @@
     ```
 
 ## <a name="react">Typescript</a>
+
+<a name="typescript--use-enum"></a>
+
+-   [1.1](#typescript--use-enum) Используйте enum для документирования
+
+        > Почему? Enam'ы могут помочь документированию вашего кода. Например когда мы обеспокоены тем, что наши переменные отличаются от значений.
+
+        ```javascript
+        // плохо
+        const GENRE = {
+          ROMANTIC: 'romantic',
+          DRAMA: 'drama',
+          COMEDY: 'comedy',
+          DOCUMENTARY: 'documentary',
+        }
+
+        // хорошо
+        enum Genre {
+          Romantic,
+          Drama,
+          Comedy,
+          Documentary,
+        }
+        ```
+
+<a name="typescript--dont-check-types"></a>
+
+-   [1.1](#typescript--dont-check-types) Избегайте проверки типов
+
+    > TypeScript является надмножеством синтаксиса JavaScript и добавляют дополнительные статические проверки типов для языка. Всегда предпочитайте указывать типы переменных, параметров и возвращаемых значений, чтобы использовать всю мощь TypeScript. Это делает будущий рефакторинг более легким.
+
+    ```javascript
+    // плохо
+    function travelToTexas(vehicle: Bicycle | Car) {
+        if (vehicle instanceof Bicycle) {
+            vehicle.pedal(currentLocation, new Location("texas"));
+        } else if (vehicle instanceof Car) {
+            vehicle.drive(currentLocation, new Location("texas"));
+        }
+    }
+
+    // хорошо
+    type Vehicle = Bicycle | Car;
+
+    function travelToTexas(vehicle: Vehicle) {
+        vehicle.move(currentLocation, new Location("texas"));
+    }
+    ```
+
+<a name="typescript--use-private-types"></a>
+
+-   [1.1](#typescript--use-private-types) Создавайте объекты с приватными/защищенными полями
+
+    > TypeScript поддерживает public (по умолчанию), protected и private средства доступа к свойствам класса.
+
+<a name="typescript--types-vs-interface"></a>
+
+-   [1.1](#typescript--use-private-types) Типы vs. интерфейсы
+
+    > Используйте типы, когда вам может понадобиться объединение или пересечение. Используйте интерфейс, когда хотите использовать extends или implements. Однако строгого правила не существует, используйте то, что работает у вас.
+
+    ```javascript
+    // плохо
+    interface EmailConfig {
+        // ...
+    }
+
+    interface DbConfig {
+        // ...
+    }
+
+    interface Config {
+        // ...
+    }
+
+    //...
+
+    type Shape = {
+        // ...
+    };
+
+    // хорошо
+    type EmailConfig = {
+        // ...
+    };
+
+    type DbConfig = {
+        // ...
+    };
+
+    type Config = EmailConfig | DbConfig;
+
+    // ...
+
+    interface Shape {
+        // ...
+    }
+
+    class Circle implements Shape {
+        // ...
+    }
+
+    class Square implements Shape {
+        // ...
+    }
+    ```
+
+<a name="typescript--naming-prefix"></a>
+
+-   [1.1](#typescript--dont-check-types) Префикс в именовании типов и интерфейсов
+
+    > Использование префиксов не является обязательным. Используйте на свое усмотрение.
+
+    ```javascript
+    // хорошо
+    interface IFacility {}
+
+    // хорошо
+    interface Facility {}
+    ```
+
+<a name="typescript--naming-prefix"></a>
+
+-   [1.1](#typescript--dont-check-types) Не объявляйте явно undefined
+
+    > Если необходимо объявить не известное значение используйте null. В интерфейсах используйте необязательные параметры
+
+    ```javascript
+    // плохо
+    let user = undefined;
+
+    // хорошо
+    let user = null;
+
+    // плохо
+    let foo = { x: 123, y: undefined };
+
+    // хорошо
+    let foo: { x: number, y?: number } = { x: 123 };
+    ```
+
+## <a name="test">Тестирование</a>
+
+<a name="typescript--naming-prefix"></a>
+
+-   [1.1](#typescript--dont-check-types) Один кейс на тест
+
+    > Тесты также должны соответствовать Принципу единой ответственности(SPP). Делайте только одно утверждение за единицу теста
+
+    ```javascript
+    // плохо
+    describe("AwesomeDate", () => {
+        it("handles date boundaries", () => {
+            let date: AwesomeDate;
+
+            date = new AwesomeDate("1/1/2015");
+            assert.equal("1/31/2015", date.addDays(30));
+
+            date = new AwesomeDate("2/1/2016");
+            assert.equal("2/29/2016", date.addDays(28));
+
+            date = new AwesomeDate("2/1/2015");
+            assert.equal("3/1/2015", date.addDays(28));
+        });
+    });
+
+    // хорошо
+    describe("AwesomeDate", () => {
+        it("handles 30-day months", () => {
+            const date = new AwesomeDate("1/1/2015");
+            assert.equal("1/31/2015", date.addDays(30));
+        });
+
+        it("handles leap year", () => {
+            const date = new AwesomeDate("2/1/2016");
+            assert.equal("2/29/2016", date.addDays(28));
+        });
+
+        it("handles non-leap year", () => {
+            const date = new AwesomeDate("2/1/2015");
+            assert.equal("3/1/2015", date.addDays(28));
+        });
+    });
+    ```
+
+## <a name="test">Асинхронность</a>
+
+<a name="typescript--naming-prefix"></a>
+
+-   [1.1](#typescript--dont-check-types) Используйте там, где это возможно, конструкцию async/await
+
+    > Callback-функции ухудшают читаемость и приводят к чрезмерному количеству вложенности (ад обратных вызовов(callback hell)).
