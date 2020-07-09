@@ -1,6 +1,9 @@
 # Руководство по написанию кода
 
-За основу руководства взят Airbnb JavaScript Style Guide
+За основу руководства взят Airbnb JavaScript Style Guide. Убрал проблемы которые решает prettier.
+
+-   prefix types
+-   именование is
 
 ## Оглавление
 
@@ -26,10 +29,9 @@
 1. [Приведение типов](#type-casting--coercion)
 1. [Соглашение об именовании](#naming-conventions)
 1. [React](#react)
+1. [Typescript](#typescript)
 
 ## <a name="objects">Объекты</a>
-
-<a name="objects--no-new"></a><a name="1.1"></a>
 
 -   [1.1](#objects--no-new) Для создания объекта используйте литеральную нотацию. eslint: [`no-new-object`](https://eslint.org/docs/rules/no-new-object.html)
 
@@ -1584,23 +1586,44 @@
 
 -   [17.1](#control-statements) Старайтесь не называть логические переменные так, чтобы в их именах присутствовало бы отрицание. То же самое касается и функций, возвращающих логические значения. Использование таких сущностей в условных конструкциях затрудняет чтение кода.
 
+        ```javascript
+        // плохо
+        function isUserNotBlocked(user) {
+            // реализация
+        }
+
+        if (!isUserNotBlocked(user)) {
+            // реализация
+        }
+
+        // хорошо
+        function isUserBlocked(user) {
+            // реализация
+        }
+
+        if (isUserBlocked(user)) {
+            // реализация
+        }
+        ```
+
+    <a name="control-statements"></a>
+
+-   [17.1](#control-statements) Если продолжение выполнения функции зависит от значения, рекомендуется при невыполнении условия прекращать выполнение функции.
+
+    > Почему? Уменьшает вложенность кода, легче читается.
+
     ```javascript
     // плохо
-    function isUserNotBlocked(user) {
-      // реализация
-    }
-
-    if (!isUserNotBlocked(user)) {
-      // реализация
+    function doSomething() {
+        if (true) {
+            // реализация
+        }
     }
 
     // хорошо
-    function isUserBlocked(user) {
-      // реализация
-    }
-
-    if (isUserBlocked(user)) {
-      // реализация
+    function doSomething() {
+        if (false) return;
+        // реализация
     }
     ```
 
@@ -2219,6 +2242,27 @@
 
 <a name="naming--descriptive"></a>
 
+-   [23.1](#naming--functions) Массивы обычно содержат в себе наборы каких-то значений. В результате к имени переменной, хранящей массив, имеет смысл добавлять букву s. Например:
+
+    ```javascript
+    // плохо
+    const user = [];
+
+    // хорошо
+    const users = [];
+    ```
+
+<a name="naming--descriptive"></a>
+
+-   [23.1](#naming--boolean) Имена логических переменных имеет смысл начинать с is или has. Это приближает их к конструкциям, которые имеются в обычном языке. Например, вот вопрос: «Is that person a teacher?». Ответом на него может служить «Yes» или «No». Аналогично можно поступать и подбирая имена для логических переменных:
+
+    ```javascript
+    // хорошо
+    const isTeacher = true;
+    ```
+
+<a name="naming--descriptive"></a>
+
 -   [23.1](#naming--functions) Используйте для функций длинные описательные имена. Учитывая то, что функция представляет собой описание выполнения некоего действия, её имя должно представлять собой глагол или фразу, полностью описывающую суть функции. Имена аргументов нужно подбирать так, чтобы они адекватно описывали бы представляемые ими данные. Имена функций должны сообщать читателю кода о том, что именно делают эти функции.
 
     ```javascript
@@ -2395,10 +2439,8 @@
     -   Однако, разрешается несколько [компонентов без состояний (чистых)](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) в файле. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
 -   Всегда используйте JSX синтаксис.
 
-## <a name="naming">Именование</a>
-
--   **Расширения**: Используйте расширение `.jsx | .tsx` для компонентов React. eslint: [`react/jsx-filename-extension`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md)
--   **Именование переменной**: Используйте `PascalCase` для компонентов React. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
+*   **Расширения**: Используйте расширение `.jsx | .tsx` для компонентов React. eslint: [`react/jsx-filename-extension`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md)
+*   **Именование переменной**: Используйте `PascalCase` для компонентов React. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
 
     ```jsx
     // плохо
@@ -2408,7 +2450,7 @@
     import ReservationCard from "./ReservationCard";
     ```
 
--   **Именование компонента высшего порядка**: Используйте сочетание имени компонента высшего порядка и имени переданного в него компонента как свойство `displayName` сгенерированного компонента. Например, из компонента высшего порядка `withFoo()`, которому передан компонент `Bar`, должен получаться компонент с `displayName` равным `withFoo(Bar)`.
+*   **Именование компонента высшего порядка**: Используйте сочетание имени компонента высшего порядка и имени переданного в него компонента как свойство `displayName` сгенерированного компонента. Например, из компонента высшего порядка `withFoo()`, которому передан компонент `Bar`, должен получаться компонент с `displayName` равным `withFoo(Bar)`.
 
     > Почему? Свойство `displayName` может использоваться в инструментах разработчика или сообщениях об ошибках, и если оно ясно выражает связь между компонентами, это помогает понять, что происходит.
 
@@ -2433,7 +2475,7 @@
     }
     ```
 
--   **Названия свойств**: Избегайте использования названий свойств DOM-компонента для других целей.
+*   **Названия свойств**: Избегайте использования названий свойств DOM-компонента для других целей.
 
     > Почему? Люди ожидают, что такие свойства как `style` и `className` имеют одно определённое значение. Изменение этого API в вашем приложении ухудшает читабельность и поддержку кода, что может приводить к ошибкам.
 
@@ -2447,8 +2489,6 @@
     // хорошо
     <MyComponent variant="fancy" />
     ```
-
-## <a name="alignment">Выравнивание</a>
 
 -   Следуйте приведённым ниже стилям для JSX-синтаксиса. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
 
@@ -2494,9 +2534,7 @@
     {showButton && <Button />}
     ```
 
-## <a name="spacing">Пробелы</a>
-
--   Всегда вставляйте один пробел в ваш самозакрывающийся тег. eslint: [`no-multi-spaces`](https://eslint.org/docs/rules/no-multi-spaces), [`react/jsx-tag-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md)
+*   Всегда вставляйте один пробел в ваш самозакрывающийся тег. eslint: [`no-multi-spaces`](https://eslint.org/docs/rules/no-multi-spaces), [`react/jsx-tag-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md)
 
     ```jsx
     // плохо
@@ -2513,7 +2551,7 @@
     <Foo />
     ```
 
--   Не отделяйте фигурные скобки пробелами в JSX. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
+*   Не отделяйте фигурные скобки пробелами в JSX. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
 
     ```jsx
     // плохо
@@ -2522,8 +2560,6 @@
     // хорошо
     <Foo bar={baz} />
     ```
-
-## <a name="props">Свойства (Props)</a>
 
 -   Всегда используйте `camelCase` для названий свойств.
 
@@ -2670,9 +2706,7 @@
     }
     ```
 
-## <a name="refs">Ссылки (Refs)</a>
-
--   Всегда используйте функции обратного вызова. eslint: [`react/no-string-refs`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)
+*   Всегда используйте функции обратного вызова. eslint: [`react/no-string-refs`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)
 
     ```jsx
     // плохо
@@ -2685,8 +2719,6 @@
       ref={(ref) => { this.myRef = ref; }}
     />
     ```
-
-## <a name="parentheses">Круглые скобки</a>
 
 -   Оборачивайте в скобки JSX теги, когда они занимают больше одной строки. eslint: [`react/jsx-wrap-multilines`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-wrap-multilines.md)
 
@@ -2714,8 +2746,6 @@
     }
     ```
 
-## <a name="tags">Теги</a>
-
 -   Всегда используйте самозакрывающиеся теги, если у элемента нет дочерних элементов. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
 
     ```jsx
@@ -2740,3 +2770,5 @@
       baz="baz"
     />
     ```
+
+## <a name="react">Typescript</a>
