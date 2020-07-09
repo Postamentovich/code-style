@@ -1,5 +1,7 @@
 # Руководство по написанию кода
 
+За основу руководства взят Airbnb JavaScript Style Guide
+
 ## Оглавление
 
   1. [Типы](#types)
@@ -11,7 +13,6 @@
   1. [Стрелочные функции](#arrow-functions)
   1. [Классы и конструкторы](#classes--constructors)
   1. [Модули](#modules)
-  1. [Итераторы и генераторы](#iterators-and-generators)
   1. [Свойства](#properties)
   1. [Переменные](#variables)
   1. [Подъём](#hoisting)
@@ -2079,7 +2080,7 @@
 
 ## <a name="naming-conventions">Соглашение об именовании</a>
 
-  <a name="naming--meaning"></a><a name="22.1"></a>
+  <a name="naming--meaning"></a>
   - [23.1](#naming--meaning) Называйте переменные так, чтобы их имена раскрывали бы их сущность, их роль в программе. При таком подходе их удобно будет искать в коде, а тот, кто увидит этот код, легче сможет понять смысл выполняемых им действий
 
     ```javascript
@@ -2217,7 +2218,7 @@
     });
     ```
 
-  <a name="naming--leading-underscore"></a><a name="22.4"></a>
+  <a name="naming--leading-underscore"></a>
   - [23.4](#naming--leading-underscore) Не используйте `_` в начале или в конце названий. eslint: [`no-underscore-dangle`](https://eslint.org/docs/rules/no-underscore-dangle.html)
 
     > Почему? JavaScript не имеет концепции приватности свойств или методов. Хотя подчёркивание в начале имени является распространённым соглашением, которое показывает «приватность», фактически эти свойства являются такими же доступными, как и часть вашего публичного API. Это соглашение может привести к тому, что разработчики будут ошибочно думать, что изменения не приведут к поломке или что тесты не нужны. Итог: если вы хотите, чтобы что-то было «приватным», то оно не должно быть доступно извне.
@@ -2237,7 +2238,7 @@
     firstNames.set(this, 'Panda');
     ```
 
-  <a name="naming--self-this"></a><a name="22.5"></a>
+  <a name="naming--self-this"></a>
   - [23.5](#naming--self-this) Не сохраняйте ссылку на `this`. Используйте стрелочные функции или [метод bind()](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
 
     ```javascript
@@ -2264,7 +2265,7 @@
       };
     }
     ```
-  <a name="naming--PascalCase-singleton"></a><a name="22.8"></a>
+  <a name="naming--PascalCase-singleton"></a>
   - [23.8](#naming--PascalCase-singleton) Используйте `PascalCase`, когда экспортируете конструктор / класс / синглтон / библиотечную функцию / объект.
 
     ```javascript
