@@ -664,8 +664,6 @@
 
     > Почему? Таким образом создаётся функция, которая выполняется в контексте `this`, который мы обычно хотим, а также это более короткий синтаксис.
 
-    > Почему бы и нет? Если у вас есть довольно сложная функция, вы можете переместить эту логику внутрь её собственного именованного функционального выражения.
-
     ```javascript
     // плохо
     [1, 2, 3].map(function (x) {
@@ -1308,25 +1306,25 @@
 
 -   [13.1](#control-naming) Старайтесь не называть логические переменные так, чтобы в их именах присутствовало бы отрицание. То же самое касается и функций, возвращающих логические значения. Использование таких сущностей в условных конструкциях затрудняет чтение кода.
 
-        ```javascript
-        // плохо
-        function isUserNotBlocked(user) {
-            // реализация
-        }
+    ```javascript
+    // плохо
+    function isUserNotBlocked(user) {
+        // реализация
+    }
 
-        if (!isUserNotBlocked(user)) {
-            // реализация
-        }
+    if (!isUserNotBlocked(user)) {
+        // реализация
+    }
 
-        // хорошо
-        function isUserBlocked(user) {
-            // реализация
-        }
+    // хорошо
+    function isUserBlocked(user) {
+        // реализация
+    }
 
-        if (isUserBlocked(user)) {
-            // реализация
-        }
-        ```
+    if (isUserBlocked(user)) {
+        // реализация
+    }
+    ```
 
 <a name="control-return"></a>
 
@@ -1505,37 +1503,9 @@
 
 ## <a name="commas">Запятые</a>
 
-<a name="commas--leading-trailing"></a>
-
--   [16.1](#commas--leading-trailing) Не начинайте строку с запятой. eslint: [`comma-style`](https://eslint.org/docs/rules/comma-style.html)
-
-    ```javascript
-    // плохо
-    const story = [once, upon, aTime];
-
-    // хорошо
-    const story = [once, upon, aTime];
-
-    // плохо
-    const hero = {
-        firstName: "Ada",
-        lastName: "Lovelace",
-        birthYear: 1815,
-        superPower: "computers",
-    };
-
-    // хорошо
-    const hero = {
-        firstName: "Ada",
-        lastName: "Lovelace",
-        birthYear: 1815,
-        superPower: "computers",
-    };
-    ```
-
 <a name="commas--dangling"></a>
 
--   [16.2](#commas--dangling) Добавляйте висячие запятые. eslint: [`comma-dangle`](https://eslint.org/docs/rules/comma-dangle.html)
+-   [16.1](#commas--dangling) Добавляйте висячие запятые. eslint: [`comma-dangle`](https://eslint.org/docs/rules/comma-dangle.html)
 
     > Почему? Такой подход даёт понятную разницу при просмотре изменений. Кроме того, транспиляторы типа Babel удалят висячие запятые из собранного кода, поэтому вы можете не беспокоиться о [проблемах](https://github.com/airbnb/javascript/blob/es5-deprecated/es5/README.md#commas) в старых браузерах.
 
@@ -2172,25 +2142,25 @@
 
 -   [21.1](#typescript--use-enum) Используйте enum для документирования
 
-        > Почему? Enam'ы могут помочь документированию вашего кода. Например когда мы обеспокоены тем, что наши переменные отличаются от значений.
+    > Почему? Enam'ы могут помочь документированию вашего кода. Например когда мы обеспокоены тем, что наши переменные отличаются от значений.
 
-        ```javascript
-        // плохо
-        const GENRE = {
-          ROMANTIC: 'romantic',
-          DRAMA: 'drama',
-          COMEDY: 'comedy',
-          DOCUMENTARY: 'documentary',
-        }
+    ```javascript
+    // плохо
+    const GENRE = {
+        ROMANTIC: 'romantic',
+        DRAMA: 'drama',
+        COMEDY: 'comedy',
+        DOCUMENTARY: 'documentary',
+    }
 
-        // хорошо
-        enum Genre {
-          Romantic,
-          Drama,
-          Comedy,
-          Documentary,
-        }
-        ```
+    // хорошо
+    enum Genre {
+        Romantic,
+        Drama,
+        Comedy,
+        Documentary,
+    }
+    ```
 
 <a name="typescript--dont-check-types"></a>
 
@@ -2292,23 +2262,23 @@
 
 -   [21.6](#typescript--no-implicit-undefined) Не объявляйте явно undefined
 
-        > Если необходимо объявить неизвестное значение используйте null. В интерфейсах используйте необязательные параметры
+    > Если необходимо объявить неизвестное значение используйте null. В интерфейсах используйте необязательные параметры
 
-        ```javascript
-        // плохо
-        let user = undefined;
+    ```javascript
+    // плохо
+    let user = undefined;
 
-        // хорошо
-        let user = null;
+    // хорошо
+    let user = null;
 
-        // плохо
-        let foo = { x: 123, y: undefined };
+    // плохо
+    let foo = { x: 123, y: undefined };
 
-        // хорошо
-        let foo: { x: number, y?: number } = { x: 123 };
-        ```
+    // хорошо
+    let foo: { x: number, y?: number } = { x: 123 };
+    ```
 
-    <a name="typescript--no-implicit-types"></a>
+<a name="typescript--no-implicit-types"></a>
 
 -   [21.7](#typescript--no-implicit-types) Не указывайте типы явно, там где typescript сам может их определить.
 
