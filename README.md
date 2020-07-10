@@ -534,7 +534,7 @@
     }
     ```
 
-<a name="functions--default-parameters"></a><a name="7.7"></a>
+<a name="functions--default-parameters"></a>
 
 -   [5.5](#functions--default-parameters) Используйте синтаксис записи аргументов по умолчанию, а не изменяйте аргументы функции.
 
@@ -563,7 +563,7 @@
     }
     ```
 
-<a name="functions--default-side-effects"></a><a name="7.8"></a>
+<a name="functions--default-side-effects"></a>
 
 -   [5.6](#functions--default-side-effects) Избегайте побочных эффектов с параметрами по умолчанию.
 
@@ -581,7 +581,7 @@
     count(); // 3
     ```
 
-<a name="functions--defaults-last"></a><a name="7.9"></a>
+<a name="functions--defaults-last"></a>
 
 -   [5.7](#functions--defaults-last) Всегда вставляйте последними параметры по умолчанию.
 
@@ -628,27 +628,33 @@
     }
     ```
 
-<a name="functions--spread-vs-apply"></a><a name="7.14"></a>
+<a name="functions--spread-vs-apply"></a>
 
 -   [5.9](#functions--spread-vs-apply) Отдавайте предпочтение использованию оператора расширения `...` при вызове вариативной функции. eslint: [`prefer-spread`](https://eslint.org/docs/rules/prefer-spread)
 
-    > Почему? Это чище, вам не нужно предоставлять контекст, и не так просто составить `new` с `apply`.
+        > Почему? Это чище, вам не нужно предоставлять контекст, и не так просто составить `new` с `apply`.
 
-    ```javascript
-    // плохо
-    const x = [1, 2, 3, 4, 5];
-    console.log.apply(console, x);
+        ```javascript
+        // плохо
+        const x = [1, 2, 3, 4, 5];
+        console.log.apply(console, x);
 
-    // хорошо
-    const x = [1, 2, 3, 4, 5];
-    console.log(...x);
+        // хорошо
+        const x = [1, 2, 3, 4, 5];
+        console.log(...x);
 
-    // плохо
-    new (Function.prototype.bind.apply(Date, [null, 2016, 8, 5]))();
+        // плохо
+        new (Function.prototype.bind.apply(Date, [null, 2016, 8, 5]))();
 
-    // хорошо
-    new Date(...[2016, 8, 5]);
-    ```
+        // хорошо
+        new Date(...[2016, 8, 5]);
+        ```
+
+<a name="functions--max-lines"></a>
+
+-   [5.10](#functions--max-lines) Максимальное количество строк в функции - 32. Данное значение превышать не рекомендуется.
+
+    > Если функция получается больше чем 32 строки, задумайтесь о рефакторинге. Если это middleware, посмотрите примеры использования [`эпиков`](https://redux-observable.js.org/docs/basics/Epics.html). Если это React компонент, разбейте его на более мелкие компоненты.
 
 ## <a name="arrow-functions">Стрелочные функции</a>
 
@@ -1738,7 +1744,7 @@
 
 <a name="naming--functions"></a>
 
--   [19.4](#naming--functions) Используйте для функций длинные описательные имена. Учитывая то, что функция представляет собой описание выполнения некоего действия, её имя должно представлять собой глагол или фразу, полностью описывающую суть функции. Имена аргументов нужно подбирать так, чтобы они адекватно описывали бы представляемые ими данные. Имена функций должны сообщать читателю кода о том, что именно делают эти функции.
+-   [19.4](#naming--functions) Используйте для функций длинные описательные имена. Учитывая то, что функция представляет собой описание выполнения некоего действия, её имя должно представлять собой глагол или фразу, полностью описывающую суть функции. Имена аргументов нужно подбирать так, чтобы они адекватно описывали бы представляемые ими данные. Для коллбэков рекомендуется добавлять префикс on.
 
     ```javascript
     // плохо
@@ -1920,6 +1926,22 @@
     const requests = [
         // ...
     ];
+    ```
+
+<a name="naming--kebab-case"></a>
+
+-   [19.11](#naming--kebab-case) Используйте kebab-case для наименования файлов и папок.
+
+    ```javascript
+    // плохо
+    MyComponent.tsx;
+
+    // хорошо
+    my - component.tsx;
+
+    // хорошо
+    some - component / --index.tsx;
+    --index.scss;
     ```
 
 ## <a name="react">React</a>
@@ -2140,6 +2162,10 @@
     />
     ```
 
+<a name="react--jsx-no-inline-style"></a>
+
+-   [20.10](#react--jsx-no-inline-style) Старайтесь не использовать inline стили.
+
 ## <a name="react">Typescript</a>
 
 <a name="typescript--use-enum"></a>
@@ -2264,22 +2290,36 @@
 
 <a name="typescript--no-implicit-undefined"></a>
 
--   [1.1](#typescript--no-implicit-undefined) Не объявляйте явно undefined
+-   [21.6](#typescript--no-implicit-undefined) Не объявляйте явно undefined
 
-    > Если необходимо объявить неизвестное значение используйте null. В интерфейсах используйте необязательные параметры
+        > Если необходимо объявить неизвестное значение используйте null. В интерфейсах используйте необязательные параметры
+
+        ```javascript
+        // плохо
+        let user = undefined;
+
+        // хорошо
+        let user = null;
+
+        // плохо
+        let foo = { x: 123, y: undefined };
+
+        // хорошо
+        let foo: { x: number, y?: number } = { x: 123 };
+        ```
+
+    <a name="typescript--no-implicit-types"></a>
+
+-   [21.7](#typescript--no-implicit-types) Не указывайте типы явно, там где typescript сам может их определить.
 
     ```javascript
-    // плохо
-    let user = undefined;
-
-    // хорошо
-    let user = null;
+    const numbers: number[] = [];
 
     // плохо
-    let foo = { x: 123, y: undefined };
+    numbers.forEach((num: number) => ... )
 
     // хорошо
-    let foo: { x: number, y?: number } = { x: 123 };
+    numbers.forEach((num) => ... )
     ```
 
 ## <a name="test">Тестирование</a>
