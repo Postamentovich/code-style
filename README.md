@@ -12,7 +12,6 @@
 1. [Модули](#modules)
 1. [Свойства](#properties)
 1. [Переменные](#variables)
-1. [Подъём](#hoisting)
 1. [Операторы сравнения и равенства](#comparison-operators--equality)
 1. [Блоки](#blocks)
 1. [Управляющие операторы](#control-statements)
@@ -1500,9 +1499,9 @@
 
 ## <a name="commas">Запятые</a>
 
-<a name="commas--leading-trailing"></a><a name="19.1"></a>
+<a name="commas--leading-trailing"></a>
 
--   [20.1](#commas--leading-trailing) Не начинайте строку с запятой. eslint: [`comma-style`](https://eslint.org/docs/rules/comma-style.html)
+-   [16.1](#commas--leading-trailing) Не начинайте строку с запятой. eslint: [`comma-style`](https://eslint.org/docs/rules/comma-style.html)
 
     ```javascript
     // плохо
@@ -1528,9 +1527,9 @@
     };
     ```
 
-<a name="commas--dangling"></a><a name="19.2"></a>
+<a name="commas--dangling"></a>
 
--   [20.2](#commas--dangling) Добавляйте висячие запятые. eslint: [`comma-dangle`](https://eslint.org/docs/rules/comma-dangle.html)
+-   [16.2](#commas--dangling) Добавляйте висячие запятые. eslint: [`comma-dangle`](https://eslint.org/docs/rules/comma-dangle.html)
 
     > Почему? Такой подход даёт понятную разницу при просмотре изменений. Кроме того, транспиляторы типа Babel удалят висячие запятые из собранного кода, поэтому вы можете не беспокоиться о [проблемах](https://github.com/airbnb/javascript/blob/es5-deprecated/es5/README.md#commas) в старых браузерах.
 
@@ -1551,106 +1550,23 @@
     };
     ```
 
-    ```javascript
-    // плохо
-    const hero = {
-        firstName: "Dana",
-        lastName: "Scully",
-    };
-
-    const heroes = ["Batman", "Superman"];
-
-    // хорошо
-    const hero = {
-        firstName: "Dana",
-        lastName: "Scully",
-    };
-
-    const heroes = ["Batman", "Superman"];
-
-    // плохо
-    function createHero(firstName, lastName, inventorOf) {
-        // ничего не делает
-    }
-
-    // хорошо
-    function createHero(firstName, lastName, inventorOf) {
-        // ничего не делает
-    }
-
-    // хорошо (обратите внимание, что висячей запятой не должно быть после rest-параметра)
-    function createHero(firstName, lastName, inventorOf, ...heroArgs) {
-        // ничего не делает
-    }
-
-    // плохо
-    createHero(firstName, lastName, inventorOf);
-
-    // хорошо
-    createHero(firstName, lastName, inventorOf);
-
-    // хорошо (обратите внимание, что висячей запятой не должно быть после rest-аргумента)
-    createHero(firstName, lastName, inventorOf, ...heroArgs);
-    ```
-
 ## <a name="semicolons">Точка с запятой</a>
 
-<a name="semicolons--required"></a><a name="20.1"></a>
+<a name="semicolons--required"></a>
 
--   [21.1](#semicolons--required) **Да.** eslint: [`semi`](https://eslint.org/docs/rules/semi.html)
+-   [17.1](#semicolons--required) **Да.** eslint: [`semi`](https://eslint.org/docs/rules/semi.html)
 
     > Почему? Когда JavaScript встречает перенос строки без точки с запятой, он использует правило под названием [Автоматическая Вставка Точки с запятой (Automatic Semicolon Insertion)](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion), чтобы определить, стоит ли считать этот перенос строки как конец выражения и (как следует из названия) поместить точку с запятой в вашем коде до переноса строки. Однако, ASI содержит несколько странных форм поведения, и ваш код может быть сломан, если JavaScript неверно истолкует ваш перенос строки. Эти правила станут сложнее, когда новые возможности станут частью JavaScript. Явное завершение ваших выражений и настройка вашего линтера для улавливания пропущенных точек с запятыми помогут вам предотвратить возникновение проблем.
 
-    ```javascript
-    // плохо - выбрасывает исключение
-    const luke = {};
-    const leia = {}[(luke, leia)].forEach((jedi) => (jedi.father = "vader"));
-
-    // плохо - выбрасывает исключение
-    const reaction = "No! That’s impossible!"(
-        (async function meanwhileOnTheFalcon() {
-            // переносимся к `leia`, `lando`, `chewie`, `r2`, `c3p0`
-            // ...
-        })(),
-    );
-
-    // плохо - возвращает `undefined` вместо значения на следующей строке. Так всегда происходит, когда `return` расположен сам по себе, потому что ASI (Автоматическая Вставка Точки с запятой)!
-    function foo() {
-        return;
-        ("search your feelings, you know it to be foo");
-    }
-
-    // хорошо
-    const luke = {};
-    const leia = {};
-    [luke, leia].forEach((jedi) => {
-        jedi.father = "vader";
-    });
-
-    // хорошо
-    const reaction = "No! That’s impossible!";
-    (async function meanwhileOnTheFalcon() {
-        // переносимся к `leia`, `lando`, `chewie`, `r2`, `c3p0`
-        // ...
-    })();
-
-    // хорошо
-    function foo() {
-        return "search your feelings, you know it to be foo";
-    }
-    ```
-
-    [Читать подробнее](https://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function/7365214#7365214).
-
 ## <a name="type-casting--coercion">Приведение типов</a>
 
-<a name="coercion--explicit"></a><a name="21.1"></a>
+<a name="coercion--explicit"></a>
 
--   [22.1](#coercion--explicit) Выполняйте приведение типов в начале инструкции.
+-   [18.1](#coercion--explicit) Выполняйте приведение типов в начале инструкции.
 
-<a name="coercion--strings"></a><a name="21.2"></a>
+<a name="coercion--strings"></a>
 
--   [22.2](#coercion--strings) Строки: eslint: [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
+-   [18.2](#coercion--strings) Строки: eslint: [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
 
     ```javascript
     // => this.reviewScore = 9;
@@ -1668,9 +1584,9 @@
     const totalScore = String(this.reviewScore);
     ```
 
-<a name="coercion--numbers"></a><a name="21.3"></a>
+<a name="coercion--numbers"></a>
 
--   [22.3](#coercion--numbers) Числа: Используйте `Number` и `parseInt` с основанием системы счисления. eslint: [`radix`](https://eslint.org/docs/rules/radix) [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
+-   [18.3](#coercion--numbers) Числа: Используйте `Number` и `parseInt` с основанием системы счисления. eslint: [`radix`](https://eslint.org/docs/rules/radix) [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
 
     ```javascript
     const inputValue = "4";
@@ -1694,9 +1610,9 @@
     const val = parseInt(inputValue, 10);
     ```
 
-<a name="coercion--booleans"></a><a name="21.6"></a>
+<a name="coercion--booleans"></a>
 
--   [22.6](#coercion--booleans) Логические типы: eslint: [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
+-   [18.4](#coercion--booleans) Логические типы: eslint: [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
 
     ```javascript
     const age = 0;
@@ -1715,7 +1631,7 @@
 
 <a name="naming--meaning"></a>
 
--   [23.1](#naming--meaning) Называйте переменные так, чтобы их имена раскрывали бы их сущность, их роль в программе. При таком подходе их удобно будет искать в коде, а тот, кто увидит этот код, легче сможет понять смысл выполняемых им действий
+-   [19.1](#naming--meaning) Называйте переменные так, чтобы их имена раскрывали бы их сущность, их роль в программе. При таком подходе их удобно будет искать в коде, а тот, кто увидит этот код, легче сможет понять смысл выполняемых им действий
 
     ```javascript
     // плохо
@@ -1799,9 +1715,9 @@
     user.name;
     ```
 
-<a name="naming--descriptive"></a>
+<a name="naming--arrays"></a>
 
--   [23.1](#naming--functions) Массивы обычно содержат в себе наборы каких-то значений. В результате к имени переменной, хранящей массив, имеет смысл добавлять букву s. Например:
+-   [19.2](#naming--arrays") Массивы обычно содержат в себе наборы каких-то значений. В результате к имени переменной, хранящей массив, имеет смысл добавлять букву s. Например:
 
     ```javascript
     // плохо
@@ -1811,18 +1727,18 @@
     const users = [];
     ```
 
-<a name="naming--descriptive"></a>
+<a name="naming--boolean"></a>
 
--   [23.1](#naming--boolean) Имена логических переменных имеет смысл начинать с is или has. Это приближает их к конструкциям, которые имеются в обычном языке. Например, вот вопрос: «Is that person a teacher?». Ответом на него может служить «Yes» или «No». Аналогично можно поступать и подбирая имена для логических переменных:
+-   [19.3](#naming--boolean) Имена логических переменных имеет смысл начинать с is, are или has. Это приближает их к конструкциям, которые имеются в обычном языке. Например, вот вопрос: «Is that person a teacher?». Ответом на него может служить «Yes» или «No». Аналогично можно поступать и подбирая имена для логических переменных:
 
     ```javascript
     // хорошо
     const isTeacher = true;
     ```
 
-<a name="naming--descriptive"></a>
+<a name="naming--functions"></a>
 
--   [23.1](#naming--functions) Используйте для функций длинные описательные имена. Учитывая то, что функция представляет собой описание выполнения некоего действия, её имя должно представлять собой глагол или фразу, полностью описывающую суть функции. Имена аргументов нужно подбирать так, чтобы они адекватно описывали бы представляемые ими данные. Имена функций должны сообщать читателю кода о том, что именно делают эти функции.
+-   [19.4](#naming--functions) Используйте для функций длинные описательные имена. Учитывая то, что функция представляет собой описание выполнения некоего действия, её имя должно представлять собой глагол или фразу, полностью описывающую суть функции. Имена аргументов нужно подбирать так, чтобы они адекватно описывали бы представляемые ими данные. Имена функций должны сообщать читателю кода о том, что именно делают эти функции.
 
     ```javascript
     // плохо
@@ -1838,7 +1754,7 @@
 
 <a name="naming--descriptive"></a>
 
--   [23.1](#naming--descriptive) Избегайте названий из одной буквы. Имя должно быть наглядным. eslint: [`id-length`](https://eslint.org/docs/rules/id-length)
+-   [19.5](#naming--descriptive) Избегайте названий из одной буквы. Имя должно быть наглядным. eslint: [`id-length`](https://eslint.org/docs/rules/id-length)
 
     ```javascript
     // плохо
@@ -1852,9 +1768,16 @@
     }
     ```
 
-<a name="naming--camelCase"></a><a name="22.2"></a>
+<a name="naming--camelCase"></a>
 
--   [23.2](#naming--camelCase) Используйте `camelCase` для именования переменных, объектов, функций, методов и экземпляров. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
+-   [19.6](#naming--camelCase) Используйте `camelCase` для именования:
+
+    -   переменных,
+    -   объектов,
+    -   функций,
+    -   методов,
+    -   экземпляров класса,
+    -   свойств компонента,
 
     ```javascript
     // плохо
@@ -1867,9 +1790,18 @@
     function thisIsMyFunction() {}
     ```
 
-<a name="naming--PascalCase"></a><a name="22.3"></a>
+<a name="naming--PascalCase"></a>
 
--   [23.3](#naming--PascalCase) Используйте `PascalCase` для именования конструкторов, классов, типов, enum, интерфейсов и синглтонов. eslint: [`new-cap`](https://eslint.org/docs/rules/new-cap.html)
+-   [19.7](#naming--PascalCase) Используйте `PascalCase` для именования:
+
+    -   конструкторов,
+    -   классов,
+    -   синглтонов,
+    -   типов,
+    -   интерфейсов,
+    -   enum,
+    -   свойств enum,
+    -   React компонентов
 
     ```javascript
     // плохо
@@ -1905,7 +1837,7 @@
 
 <a name="naming--leading-underscore"></a>
 
--   [23.4](#naming--leading-underscore) Не используйте `_` в начале или в конце названий. eslint: [`no-underscore-dangle`](https://eslint.org/docs/rules/no-underscore-dangle.html)
+-   [19.8](#naming--leading-underscore) Не используйте `_` в начале или в конце названий. eslint: [`no-underscore-dangle`](https://eslint.org/docs/rules/no-underscore-dangle.html)
 
     > Почему? JavaScript не имеет концепции приватности свойств или методов. Хотя подчёркивание в начале имени является распространённым соглашением, которое показывает «приватность», фактически эти свойства являются такими же доступными, как и часть вашего публичного API. Это соглашение может привести к тому, что разработчики будут ошибочно думать, что изменения не приведут к поломке или что тесты не нужны. Итог: если вы хотите, чтобы что-то было «приватным», то оно не должно быть доступно извне.
 
@@ -1926,7 +1858,7 @@
 
 <a name="naming--self-this"></a>
 
--   [23.5](#naming--self-this) Не сохраняйте ссылку на `this`. Используйте стрелочные функции или [метод bind()](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+-   [19.9](#naming--self-this) Не сохраняйте ссылку на `this`. Используйте стрелочные функции или [метод bind()](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
 
     ```javascript
     // плохо
@@ -1953,21 +1885,9 @@
     }
     ```
 
-    <a name="naming--PascalCase-singleton"></a>
-
--   [23.8](#naming--PascalCase-singleton) Используйте `PascalCase`, когда экспортируете конструктор / класс / синглтон / библиотечную функцию / объект.
-
-    ```javascript
-    const AirbnbStyleGuide = {
-        es6: {},
-    };
-
-    export default AirbnbStyleGuide;
-    ```
-
 <a name="naming--Acronyms-and-Initialisms"></a>
 
--   [23.9](#naming--Acronyms-and-Initialisms) Сокращения или буквенные аббревиатуры всегда должны быть в верхнем или нижнем регистре.
+-   [19.10](#naming--Acronyms-and-Initialisms) Сокращения или буквенные аббревиатуры всегда должны быть в верхнем или нижнем регистре.
 
     > Почему? Имена предназначены для удобства чтения.
 
@@ -2004,72 +1924,29 @@
 
 ## <a name="react">React</a>
 
--   Включайте только один React компонент в файл.
-    -   Однако, разрешается несколько [компонентов без состояний (чистых)](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) в файле. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
--   Всегда используйте JSX синтаксис.
+<a name="react--components-per-file"></a>
 
-*   **Расширения**: Используйте расширение `.jsx | .tsx` для компонентов React. eslint: [`react/jsx-filename-extension`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md)
-*   **Именование переменной**: Используйте `PascalCase` для компонентов React. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
+-   [20.1](#react--components-per-file) Включайте только один React компонент в файл.
 
-    ```jsx
-    // плохо
-    import reservationCard from "./ReservationCard";
+    > Однако, разрешается несколько небольших [компонентов без состояний (чистых)](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) в файле. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
 
-    // хорошо
-    import ReservationCard from "./ReservationCard";
-    ```
+<a name="react--file-extensions"></a>
 
-*   **Именование компонента высшего порядка**: Используйте сочетание имени компонента высшего порядка и имени переданного в него компонента как свойство `displayName` сгенерированного компонента. Например, из компонента высшего порядка `withFoo()`, которому передан компонент `Bar`, должен получаться компонент с `displayName` равным `withFoo(Bar)`.
+-   [20.2](#react--file-extensions) Используйте расширение `.jsx | .tsx` для компонентов React. eslint: [`react/jsx-filename-extension`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md)
 
-    > Почему? Свойство `displayName` может использоваться в инструментах разработчика или сообщениях об ошибках, и если оно ясно выражает связь между компонентами, это помогает понять, что происходит.
+<a name="react--jsx-style"></a>
 
-    ```jsx
-    // плохо
-    export default function withFoo(WrappedComponent) {
-        return function WithFoo(props) {
-            return <WrappedComponent {...props} foo />;
-        };
-    }
-
-    // хорошо
-    export default function withFoo(WrappedComponent) {
-        function WithFoo(props) {
-            return <WrappedComponent {...props} foo />;
-        }
-
-        const wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || "Component";
-
-        WithFoo.displayName = `withFoo(${wrappedComponentName})`;
-        return WithFoo;
-    }
-    ```
-
-*   **Названия свойств**: Избегайте использования названий свойств DOM-компонента для других целей.
-
-    > Почему? Люди ожидают, что такие свойства как `style` и `className` имеют одно определённое значение. Изменение этого API в вашем приложении ухудшает читабельность и поддержку кода, что может приводить к ошибкам.
-
-    ```jsx
-    // плохо
-    <MyComponent style="fancy" />
-
-    // плохо
-    <MyComponent className="fancy" />
-
-    // хорошо
-    <MyComponent variant="fancy" />
-    ```
-
--   Следуйте приведённым ниже стилям для JSX-синтаксиса. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+-   [20.3](#react--jsx-style) Следуйте приведённым ниже стилям для JSX-синтаксиса. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
 
     ```jsx
     // плохо
     <Foo superLongParam="bar"
-         anotherSuperLongParam="baz" />
+            anotherSuperLongParam="baz" />
 
     // хорошо
     <Foo
-      superLongParam="bar"
-      anotherSuperLongParam="baz"
+        superLongParam="bar"
+        anotherSuperLongParam="baz"
     />
 
     // если свойства помещаются на одну строку, оставляйте их на одной строке
@@ -2077,33 +1954,35 @@
 
     // отступ у дочерних элементов задается как обычно
     <Foo
-      superLongParam="bar"
-      anotherSuperLongParam="baz"
+        superLongParam="bar"
+        anotherSuperLongParam="baz"
     >
-      <Quux />
+        <Quux />
     </Foo>
 
     // плохо
     {showButton &&
-      <Button />
+        <Button />
     }
 
     // плохо
     {
-      showButton &&
+        showButton &&
         <Button />
     }
 
     // хорошо
     {showButton && (
-      <Button />
+        <Button />
     )}
 
     // хорошо
     {showButton && <Button />}
     ```
 
-*   Всегда вставляйте один пробел в ваш самозакрывающийся тег. eslint: [`no-multi-spaces`](https://eslint.org/docs/rules/no-multi-spaces), [`react/jsx-tag-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md)
+<a name="react--no-multi-spaces"></a>
+
+-   [20.4](#react--no-multi-spaces) Всегда вставляйте один пробел в ваш самозакрывающийся тег. eslint: [`no-multi-spaces`](https://eslint.org/docs/rules/no-multi-spaces), [`react/jsx-tag-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md)
 
     ```jsx
     // плохо
@@ -2120,7 +1999,7 @@
     <Foo />
     ```
 
-*   Не отделяйте фигурные скобки пробелами в JSX. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
+    Не отделяйте фигурные скобки пробелами в JSX. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
 
     ```jsx
     // плохо
@@ -2130,100 +2009,28 @@
     <Foo bar={baz} />
     ```
 
--   Всегда используйте `camelCase` для названий свойств.
+<a name="react--jsx-boolean-value"></a>
 
-    ```jsx
-    // плохо
-    <Foo
-      UserName="hello"
-      phone_number={12345678}
-    />
+-   [20.5](#react--jsx-boolean-value) Не указывайте значение свойства, когда оно явно `true`. eslint: [`react/jsx-boolean-value`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)
 
-    // хорошо
-    <Foo
-      userName="hello"
-      phoneNumber={12345678}
-    />
-    ```
+        ```jsx
+        // плохо
+        <Foo
+          hidden={true}
+        />
 
--   Не указывайте значение свойства, когда оно явно `true`. eslint: [`react/jsx-boolean-value`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)
+        // хорошо
+        <Foo
+          hidden
+        />
 
-    ```jsx
-    // плохо
-    <Foo
-      hidden={true}
-    />
+        // хорошо
+        <Foo hidden />
+        ```
 
-    // хорошо
-    <Foo
-      hidden
-    />
+    <a name="react--jsx-props-spread"></a>
 
-    // хорошо
-    <Foo hidden />
-    ```
-
--   Не используйте индексы элементов массива в качестве свойства `key`. Отдавайте предпочтение уникальному ID. eslint: [`react/no-array-index-key`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md)
-
-    > Почему? Неиспользование стабильного ID [является антипаттерном](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318), потому что это может негативно повлиять на производительность компонента и вызвать проблемы с его состоянием.
-
-    Мы не рекомендуем использовать индексы для ключей, если порядок элементов может измениться.
-
-    ```jsx
-    // плохо
-    {
-        todos.map((todo, index) => <Todo {...todo} key={index} />);
-    }
-
-    // хорошо
-    {
-        todos.map((todo) => <Todo {...todo} key={todo.id} />);
-    }
-    ```
-
--   Всегда указывайте подробные `defaultProps` для всех свойств, которые не указаны как необходимые.
-
-    > Почему? `propTypes` является способом документации, а предоставление `defaultProps` позволяет читателю вашего кода избежать множества неясностей. Кроме того, это может означать, что ваш код может пропустить определённые проверки типов.
-
-    ```jsx
-    // плохо
-    function SFC({ foo, bar, children }) {
-        return (
-            <div>
-                {foo}
-                {bar}
-                {children}
-            </div>
-        );
-    }
-    SFC.propTypes = {
-        foo: PropTypes.number.isRequired,
-        bar: PropTypes.string,
-        children: PropTypes.node,
-    };
-
-    // хорошо
-    function SFC({ foo, bar, children }) {
-        return (
-            <div>
-                {foo}
-                {bar}
-                {children}
-            </div>
-        );
-    }
-    SFC.propTypes = {
-        foo: PropTypes.number.isRequired,
-        bar: PropTypes.string,
-        children: PropTypes.node,
-    };
-    SFC.defaultProps = {
-        bar: "",
-        children: null,
-    };
-    ```
-
--   Используйте оператор расширения для свойств осознанно.
+-   [20.6](#react--jsx-props-spread) Используйте оператор расширения для свойств осознанно.
 
     > Почему? В противном случае вы скорее всего будете передавать внутрь компонента лишние свойства. А для React версии 15.6.1 и старше, вы можете [передать невалидные HTML-атрибуты в DOM](https://reactjs.org/blog/2017/09/08/dom-attributes-in-react-16.html).
 
@@ -2275,21 +2082,10 @@
     }
     ```
 
-*   Всегда используйте функции обратного вызова. eslint: [`react/no-string-refs`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)
+<a name="react--jsx-wrap-multiline"></a>
 
-    ```jsx
-    // плохо
-    <Foo
-      ref="myRef"
-    />
+-   [20.7](#react--jsx-wrap-multiline) Оборачивайте в скобки JSX теги, когда они занимают больше одной строки. eslint: [`react/jsx-wrap-multilines`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-wrap-multilines.md)
 
-    // хорошо
-    <Foo
-      ref={(ref) => { this.myRef = ref; }}
-    />
-    ```
-
--   Оборачивайте в скобки JSX теги, когда они занимают больше одной строки. eslint: [`react/jsx-wrap-multilines`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-wrap-multilines.md)
 
     ```jsx
     // плохо
@@ -2315,7 +2111,9 @@
     }
     ```
 
--   Всегда используйте самозакрывающиеся теги, если у элемента нет дочерних элементов. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
+<a name="react--self-closing-comp"></a>
+
+-   [20.8](#react--self-closing-comp) Всегда используйте самозакрывающиеся теги, если у элемента нет дочерних элементов. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
 
     ```jsx
     // плохо
@@ -2325,7 +2123,9 @@
     <Foo variant="stuff" />
     ```
 
--   Если ваш компонент имеет множество свойств, которые располагаются на нескольких строчках, то закрывайте тег на новой строке. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md) [`react/jsx-closing-tag-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md)
+<a name="react--jsx-closing-bracket-location"></a>
+
+-   [20.9](#react--jsx-closing-bracket-location) Если ваш компонент имеет множество свойств, которые располагаются на нескольких строчках, то закрывайте тег на новой строке. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md) [`react/jsx-closing-tag-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md)
 
     ```jsx
     // плохо
@@ -2344,7 +2144,7 @@
 
 <a name="typescript--use-enum"></a>
 
--   [1.1](#typescript--use-enum) Используйте enum для документирования
+-   [21.1](#typescript--use-enum) Используйте enum для документирования
 
         > Почему? Enam'ы могут помочь документированию вашего кода. Например когда мы обеспокоены тем, что наши переменные отличаются от значений.
 
@@ -2368,7 +2168,7 @@
 
 <a name="typescript--dont-check-types"></a>
 
--   [1.1](#typescript--dont-check-types) Избегайте проверки типов
+-   [21.2](#typescript--dont-check-types) Избегайте дополнительных проверок типов
 
     > TypeScript является надмножеством синтаксиса JavaScript и добавляют дополнительные статические проверки типов для языка. Всегда предпочитайте указывать типы переменных, параметров и возвращаемых значений, чтобы использовать всю мощь TypeScript. Это делает будущий рефакторинг более легким.
 
@@ -2392,13 +2192,13 @@
 
 <a name="typescript--use-private-types"></a>
 
--   [1.1](#typescript--use-private-types) Создавайте объекты с приватными/защищенными полями
+-   [21.3](#typescript--use-private-types) Создавайте объекты с приватными/защищенными полями
 
     > TypeScript поддерживает public (по умолчанию), protected и private средства доступа к свойствам класса.
 
 <a name="typescript--types-vs-interface"></a>
 
--   [1.1](#typescript--use-private-types) Типы vs. интерфейсы
+-   [21.4](#typescript--types-vs-interface) Типы vs. интерфейсы
 
     > Используйте типы, когда вам может понадобиться объединение или пересечение. Используйте интерфейс, когда хотите использовать extends или implements. Однако строгого правила не существует, используйте то, что работает у вас.
 
@@ -2450,7 +2250,7 @@
 
 <a name="typescript--naming-prefix"></a>
 
--   [1.1](#typescript--dont-check-types) Префикс в именовании типов и интерфейсов
+-   [21.5](#typescript--naming-prefix) Префикс в именовании типов и интерфейсов
 
     > Использование префиксов не является обязательным. Используйте на свое усмотрение.
 
@@ -2462,11 +2262,11 @@
     interface Facility {}
     ```
 
-<a name="typescript--naming-prefix"></a>
+<a name="typescript--no-implicit-undefined"></a>
 
--   [1.1](#typescript--dont-check-types) Не объявляйте явно undefined
+-   [1.1](#typescript--no-implicit-undefined) Не объявляйте явно undefined
 
-    > Если необходимо объявить не известное значение используйте null. В интерфейсах используйте необязательные параметры
+    > Если необходимо объявить неизвестное значение используйте null. В интерфейсах используйте необязательные параметры
 
     ```javascript
     // плохо
@@ -2484,9 +2284,9 @@
 
 ## <a name="test">Тестирование</a>
 
-<a name="typescript--naming-prefix"></a>
+<a name="test--spp"></a>
 
--   [1.1](#typescript--dont-check-types) Один кейс на тест
+-   [22.1](#test--spp) Один кейс на тест
 
     > Тесты также должны соответствовать Принципу единой ответственности(SPP). Делайте только одно утверждение за единицу теста
 
@@ -2526,10 +2326,10 @@
     });
     ```
 
-## <a name="test">Асинхронность</a>
+## <a name="promise">Асинхронность</a>
 
-<a name="typescript--naming-prefix"></a>
+<a name="promise--use-async-await"></a>
 
--   [1.1](#typescript--dont-check-types) Используйте там, где это возможно, конструкцию async/await
+-   [23.1](#promise--use-async-await) Используйте там, где это возможно, конструкцию async/await
 
     > Callback-функции ухудшают читаемость и приводят к чрезмерному количеству вложенности (ад обратных вызовов(callback hell)).
